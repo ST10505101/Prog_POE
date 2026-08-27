@@ -47,6 +47,38 @@ for(int i=0; i < password.length(); i++) {
     }
     return hascapital && hasNumber && hasSpecial;
     }
+ /**
+  * CheckCellPhoneNumber: Validates South African cell phone numbers using RegEx.
+  * Citation / Reference: Oracle Java Regular Expressions Pattern Documentation.
+  * @param cellPhoneNUmber The cell phone string input
+  * @return boolean True if formatted correctly with international code, false otherwise
+  */ 
+  public boolean checkCellPhoneNumber(String cellPhoneNumber) {
+    // Regular expression matching international code +27 followed by 9 digits
+    String regex = "^\\+27\\d{9}$";
+    return cellPhoneNumber != null && cellPhoneNumber.matches(regex);
+  }   
+
+  /**
+   * registerUser: Validates inputs and returns registration success or error messages.
+   */
+  public String registerUser(String username, String password, String cellPhoneNumber) {
+    if (!checkUserName(username)) {
+        return "Username is not correctly formatted; please ensure that yuor username contains an underscore and is no more than 5 characters in length.";
+    }
+    if (!checkPasswordComplexity(password)) {
+        return "Password is not correctly formatted; please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.";
+    }
+    if (!checkCellPhoneNumber(cellPhoneNumber)) {
+        return " Cell phone number is incorrectly formatted or does not meet the international/local requirements.";
+    }
+    // If all the checks pass, save the data to your instance variables and return success
+    this.registeredUserName= username;
+    this.registeredPassword= password;
+    this.registeredCellPhoneNumber= cellPhoneNumber;
+
+    return " The user has been successfully registered.";
+  }
 }
 
   
