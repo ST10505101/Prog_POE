@@ -1,5 +1,6 @@
-/*Part 1- Registration and Login Feature
-  */
+/**
+ * Part 1: Registration and Login Feature
+ */
   public class Login{
 // Private instance variables to store user data securely
 private String registeredUserName;
@@ -78,6 +79,25 @@ for(int i=0; i < password.length(); i++) {
     this.registeredCellPhoneNumber= cellPhoneNumber;
 
     return " The user has been successfully registered.";
+  }
+ /**
+  * LoginUser: Verifies if login credentials match stored registration data.
+   */ 
+  public boolean loginUser(String username, String password) {
+    if (this.registeredUserName != null && this.registeredPassword != null) {
+        return this.registeredUserName.equals(username) && this.registeredPassword.equals(password);
+    }
+    return false;
+  }
+  /**
+   * returnLoginStatus: Returns status messaging for success or failure.
+   */
+  public String returnLoginStatus(boolean isLoggedIn, String firstName, String lastName) {
+    if (isLoggedIn){
+        return "Welcome" + firstName + ", " + lastName + " it is great to see you again.";
+    } else {
+        return "Username or password is incorrect, please try again.";
+    }
   }
 }
 
