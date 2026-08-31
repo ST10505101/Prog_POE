@@ -8,6 +8,8 @@ package com.mycompany.progassignment;
  *
  * @author ammaa
  */
+/*Part 1: Registration and Login Feature */
+
 public class Login {
 // Private instance variables to store user data securely
 private String registeredUserName;
