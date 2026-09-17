@@ -20,7 +20,7 @@ private String registeredCellPhoneNumber;
 /**
  * CheckUserName: ensures that any username contains an underscore (_) and is no more than 5 characters long.
  * @param username The username input to check
- * @return boolean True if valid, false otherwise
+ * @return Boolean True if valid, false otherwise
  */
 public boolean checkUserName(String username) {
     if (username != null && username.contains("_") && username.length() <= 5) {
