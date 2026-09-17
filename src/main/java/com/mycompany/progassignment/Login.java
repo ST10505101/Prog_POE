@@ -103,7 +103,7 @@ for(int i=0; i < password.length(); i++) {
    */
   public String returnLoginStatus(boolean isLoggedIn, String firstName, String lastName) {
       if (isLoggedIn){
-          return "Welcome" + firstName + ", " + lastName + " it is great to see you again.";
+          return "Welcome"  + firstName + ", " + lastName + " it is great to see you again.";
       } else {
           return "Username or password is incorrect, please try again.";
       }
