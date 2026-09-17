@@ -38,13 +38,24 @@ Login loginSystem= new Login();
 System.out.println("\n==========================");
 System.out.println("    REGISTRATION RESULTS    ");
 System.out.println("============================");
+if (loginSystem.checkUserName(username)){
+    System.out.println("Username successfully captured");
+}else{
+    System.out.println("Username is not correctly formatted, please ensure that your username contains an underscore and is no more than 5 characters in length.");
+}
+if (loginSystem.checkPasswordComplexity(password)){
+    System.out.println("Password successfully captured");
+}else{
+    System.out.println("Password is not correctly formatted, please ensure that the password contains at least 8 characters, a capital letter, a number and a special character.");
+}
+if (loginSystem.checkCellPhoneNumber(cellPhoneNumber)){
+    System.out.println("Cell phone number successfully captured");
+}else{
+    System.out.println("Cell phone number is not correctly formatted or does not match the international/local requirements.");
+}
 
 String regResult= loginSystem.registerUser(username, password, cellPhoneNumber);
-if (regResult.contains("Successfully registered")){
-    System.out.println("User successfully registered");
-}else{
-    System.out.println(regResult);
-}
+System.out.println(regResult);
 
 System.out.println("\n==========================");
 System.out.println("             LOGIN          ");
