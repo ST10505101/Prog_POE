@@ -43,7 +43,7 @@ public void testCheckUserNameValid(){
 @Test
 public void testCheckUserNameInvalid(){
     Login login = new Login();
-    assertFalse(login.checkUserName("kyleabceed"), "Username should be invalid");
+    assertFalse(login.checkUserName("kyle!!!!!!!"), "Username should be invalid");
 }
 @Test
 public void testCheckPasswordComplexityValid(){
@@ -60,5 +60,15 @@ public void testRegisterUser(){
     Login login = new Login();
     String result = login.registerUser("kyl_1", "Ch&&sec@ke99!", "+27831234567");
     assertNotNull(result, "Registration should return a status message");
-}  
+}
+@Test
+public void testCheckCellPhoneNumberValid(){
+Login login= new Login();
+assertTrue(login.checkCellPhoneNumber("+27838968976"),"Cell number successfully captured");
+}
+@Test
+public void testCheckCellPhoneNumberInvalid(){
+    Login login= new Login();
+    assertFalse(login.checkCellPhoneNumber("08966553"),"Cell number is incorrectly formatted or does not contain an international code; please correct the number and try again");
+}
 }
