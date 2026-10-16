@@ -13,10 +13,13 @@ public class Main{
     public static void main(String[]args){
         Scanner scanner = new Scanner(System.in);
 
+        boolean isRegistered = false;
+
     System.out.println("==========================");
     System.out.println("  QUICKCHAT REGISTRATION    ");    
     System.out.println("==========================");
-
+// Keep looping until registration is completely successful
+while (!isRegistered){
     System.out.print(" Enter your first name: ");
     String firstName= scanner.nextLine();
 
@@ -74,5 +77,6 @@ System.out.println(statusMessage);
 scanner.close();
     } 
  }
+}
 
 
