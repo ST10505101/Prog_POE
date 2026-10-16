@@ -76,5 +76,29 @@ private String generateMessageID(){
         String lastWord = words[words.length - 1].replaceAll("[^a-zA-Z]", "");
         return (idPrefix + ":" + (this.messageNumber - 1)+ ":" + firstWord + lastWord).toUpperCase();
     }
+    // Handles choice to send, store, or disregard
+    public String sentMessage(int choice){
+        switch (choice){
+            case 1:
+                return "Messagesuccessfully sent.";
+                case 2:
+                    return "Press 0 to delete the message.";
+                    case 3:
+                        reutrn "Message successfully stored.";
+                        default:
+                            return "Invalid option selected.";
+        }
+    }
+// Returns all message details
+public String printMessages(){
+    reutrn "Message ID:" + this.messageID + "\n"+
+            "Message Hash:" + this.messageHash + "\n"+
+            "Recipient:" + this.recipientCell + "\n"+
+            "Message:" + this.messageText;
+    }
+// Returns total number of messages sent
+public int returnTotalMessagesSent(){
+    return this.messageNumber;
+    }
  }
 
