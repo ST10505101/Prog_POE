@@ -74,6 +74,80 @@ boolean isLoggedIn= loginSystem.loginUser(loginUsername, loginPassword);
 String statusMessage= loginSystem.returnLoginStatus(isLoggedIn,firstName, lastName);
 System.out.println(statusMessage);
 
+
+//=========================================
+//Part 2: Quickchat menu and messaging
+//=========================================
+if (isLoggedIn){
+    System.out.println("\nWelcome to quickchat.");
+
+    boolean running = true;
+    int totalSent = 0;
+
+    while(running){
+        System.out.println("\n==========================");
+        System.out.println("QUICKCHAT MAIN MENU");
+        System.out.println("=============================");
+        System.out.println("1) Send messages");
+        System.out.println("2) Show recently sent messages");
+        System.out.println("3) Quit");
+        System.out.print("Choose and option (1-3): ");
+
+        if (!scanner.hasNextInt()){
+            System.out.println("Invalid input. Please enter a number between 1 & 3."); 
+            scanner.nextLine();
+            continue;
+        }
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // consume newLine
+
+        switch (choice){
+            case 1: 
+            System.out.print("How messages do you wish to enter? ");
+            int numMessages = scanner.nextInt();
+            scanner.nextLine();
+
+            for (int i=1; i<= numMessages; i++){
+                System.out.println("\n---EnteringMessage " + i + " of " + numMessages + "---");
+
+            System.out.print("Enter recipient cell phone number: ");
+            String recipient = scanner.nextLine();
+
+            System.out.print("Enter message text (max 250 characters): ");
+            String text = scanner.nextLine();
+
+            Message msg = new Message(i, recipient, text);
+
+            //validate message length
+            String lengthCheck = msg.checkMessagelength();
+            System.out.println(lengthCheck);
+            if (!lengthCheck.equals("Messageready to send.")){
+                i--; // Return iteration
+                continue;
+            }
+
+            //Validate recipient cell number
+            String recipientCheck = msg.checkRecipientCell();
+            System.out.println(recipientCheck);
+            if(!recipientCheck.contains("successfully captured")){
+                i--; // Retry iteration
+                continue;
+            }
+
+            // Choose action
+            System.out.println("\nChoose an action:");
+            System.out.println("1) Send Message");
+            System.out.println("2) Disregrad Message");
+            System.out.println("3) Store Message to send later");
+            System.out.print("Enter option (1-3): ");
+
+            int action = scanner.nextInt();
+            scanner.nextLine();
+            }
+        }
+    }
+
+}
 scanner.close();
     } 
  }
