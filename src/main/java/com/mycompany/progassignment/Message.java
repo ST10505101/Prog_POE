@@ -102,11 +102,11 @@ public int returnTotalMessagesSent(){
     }
     //Stores the message in a JSon file
     public void storeMessage(){
-        String JsonContent = "{\n" +
+        String jsonContent = "{\n" +
                 " \"messageID\": \"" + this.messageID + "\",\n" +
                 " \"messageHash\": \"" + this.messageHash + "\",\n" +
                 " \"recipientCell\": \"" + this.recipientCell + "\",\n" +
-                " \"messageText\": \"" + this.messageText + "\""\n" +
+                " \"messageText\": \"" + this.messageText + "\"\n"+
                 "}";
                 try (FileWriter file = new FileWriter("message_" + this.messageNumber + ".json")){
                 file.write(jsonContent);
