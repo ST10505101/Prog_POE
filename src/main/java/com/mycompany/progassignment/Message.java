@@ -64,5 +64,15 @@ private String generateMessageID(){
             int excess = this.messageText.length() -250;
         }
     }
+    //Creates and returns the Message Hash
+    public String createMessageHash(){
+        if (this.messageID == null || this.messageText == null || this.messageText.trim().isEmpty()){
+            return "";
+        }
+        String idPrefix = this.messageID.substring(0, 2);
+        String [] words = this.messageText.trim().split("\\s+");
+        String firstWord = words[0].replaceAll("[^a-zA-Z]", "");
+        return (idPrefix + ":" + (this.messageNumber - 1)+ ":" + firstWord + lastWord).topUpperCase();
+    }
  }
 
