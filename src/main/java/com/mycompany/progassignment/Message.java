@@ -84,14 +84,14 @@ private String generateMessageID(){
                 case 2:
                     return "Press 0 to delete the message.";
                     case 3:
-                        reutrn "Message successfully stored.";
+                        return "Message successfully stored.";
                         default:
                             return "Invalid option selected.";
         }
     }
 // Returns all message details
 public String printMessages(){
-    reutrn "Message ID:" + this.messageID + "\n"+
+    return "Message ID:" + this.messageID + "\n"+
             "Message Hash:" + this.messageHash + "\n"+
             "Recipient:" + this.recipientCell + "\n"+
             "Message:" + this.messageText;
@@ -100,5 +100,21 @@ public String printMessages(){
 public int returnTotalMessagesSent(){
     return this.messageNumber;
     }
- }
+    //Stores the message in a JSon file
+    public void storeMessage(){
+        String JsonContent = "{\n" +
+                " \"messageID\": \"" + this.messageID + "\",\n" +
+                " \"messageHash\": \"" + this.messageHash + "\",\n" +
+                " \"recipientCell\": \"" + this.recipientCell + "\",\n" +
+                " \"messageText\": \"" + this.messageText + "\""\n" +
+                "}";
+                try (FileWriter file = new FileWriter("message_" + this.messageNumber + ".json")){
+                file.write(jsonContent);
+                file.flush();
+    }catch (IOException e){
+    System.out.println("Error saving message to JSON: " +e.getMessage());              
+        }
+    }
+}
+ 
 
