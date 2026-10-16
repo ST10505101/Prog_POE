@@ -8,7 +8,7 @@ package com.mycompany.progassignment;
  *
  * @author ammaa
  */
-import java.io.FilterWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 
@@ -39,7 +39,7 @@ public Message(int messageNumber, String recipientCell, String messageText){
  */
 private String generateMessageID(){
     Random rand = new Random();
-    long id = 1000000000L + (long)(rand.nextDouble()) *9000000000L;
+    long id = 1000000000L + (long)(rand.nextDouble() *9000000000L);
     return String.valueOf(id);
 }
  //Ensures the message ID is not more than 10 characters 
@@ -62,6 +62,7 @@ private String generateMessageID(){
             return "Message ready to send.";
         }else{
             int excess = this.messageText.length() -250;
+            return "Message exceeds the maximum length by " + excess + " characters. Please shorten your message.";
         }
     }
     //Creates and returns the Message Hash
@@ -72,7 +73,8 @@ private String generateMessageID(){
         String idPrefix = this.messageID.substring(0, 2);
         String [] words = this.messageText.trim().split("\\s+");
         String firstWord = words[0].replaceAll("[^a-zA-Z]", "");
-        return (idPrefix + ":" + (this.messageNumber - 1)+ ":" + firstWord + lastWord).topUpperCase();
+        String lastWord = words[words.length - 1].replaceAll("[^a-zA-Z]", "");
+        return (idPrefix + ":" + (this.messageNumber - 1)+ ":" + firstWord + lastWord).toUpperCase();
     }
  }
 
