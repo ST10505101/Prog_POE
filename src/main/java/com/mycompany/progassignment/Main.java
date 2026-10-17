@@ -119,7 +119,7 @@ if (isLoggedIn){
             Message msg = new Message(i, recipient, text);
 
             //validate message length
-            String lengthCheck = msg.checkMessagelength();
+            String lengthCheck = msg.checkMessageLength();
             System.out.println(lengthCheck);
             if (!lengthCheck.equals("Messageready to send.")){
                 i--; // Return iteration
@@ -143,6 +143,31 @@ if (isLoggedIn){
 
             int action = scanner.nextInt();
             scanner.nextLine();
+
+            System.out.println(msg.sentMessage(action));
+
+            if (action == 1) {
+                totalSent++;
+                System.out.println("\nMessage Details ---");
+                System.out.println(msg.printMessages());
+            }else if(action == 3) {
+                msg.storeMessage();
+            }
+         }
+         System.out.println("\nTotal messages processed:   "  + totalSent);
+         break;
+
+         case 2: 
+         System.out.println("Coming Soon.");
+         break;
+
+         case 3:
+            System.out.println("Exiting QuickChat. Goodbye!");
+            running = false;
+            break;
+
+            default:
+                System.out.println("Please choose a valid option (1-3).");
             }
         }
     }
@@ -151,6 +176,6 @@ if (isLoggedIn){
 scanner.close();
     } 
  }
-}
+
 
 
