@@ -50,7 +50,7 @@ private String generateMessageID(){
  public String checkRecipientCell(){
     if(this.recipientCell != null 
         && (this.recipientCell.startsWith("+")|| this.recipientCell.matches("^\\d+$"))
-    && this.recipientCell.length()<=10){
+    && this.recipientCell.length()<=12){
         return "Cell phone number successfully cpatured";
     }else{
         return "Cell phone number is incorrectly formatted or does not contain an international code. PLease correct the number and try again."
