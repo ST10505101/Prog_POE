@@ -46,15 +46,15 @@ private String generateMessageID(){
  public boolean checkMessageID(){
     return this.messageID != null && this.messageID.length() <=10;
  }
- // Validates that the recipient cell starts wuth an international code andis <=10 characters
- public String checkRecipientCell(){
-    if(this.recipientCell != null 
-        && (this.recipientCell.startsWith("+")|| this.recipientCell.matches("^\\d+$"))
-    && this.recipientCell.length()<=12){
-        return "Cell phone number successfully captured";
-    }else{
-        return "Cell phone number is incorrectly formatted or does not contain an international code. PLease correct the number and try again."
-;    }
+ // Validates that the recipient cell starts with an international code and is <=12 characters
+    public String checkRecipientCell(){
+        if(this.recipientCell != null 
+            && this.recipientCell.startsWith("+")
+            && this.recipientCell.length() <= 12){
+            return "Cell phone number successfully captured";
+        } else {
+            return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again."; 
+        }
     }
     // validates that the message text does not exceed 250 characters.
     public String checkMessageLength(){

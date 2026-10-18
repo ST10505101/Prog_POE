@@ -52,8 +52,7 @@ public class MessageTest {
         }
         Message msg = new Message(1, "+27718693002", sb.toString());
         String result = msg.checkMessageLength();
-        // This will print the exact string comparison if it fails
-        assertEquals("Message exceeds 250 characters by 10; please reduce the size.", result);
+        assertEquals("Message exceeds the maximum length by 10 characters. Please shorten your message.", result);
     }
 @Test
     public void testRecipientCellSuccess() {
