@@ -43,7 +43,16 @@ public void testCheckMessageLengthSuccess(){
     Message msg = new Message(1, "+27831234567", "Hey, are we still meeting for lunch today?");
     assertEquals("Message ready to send.", msg.checkMessageLength());
 }
-
+@Test
+public void testCheckMessageLengthFailure(){
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < 260; i++){
+        sb.append("a");
+    }
+    Message msg = new Message (1, "+27831234567", sb.toString());
+    String result= msg.checkMessageLength();
+    assertTrue(result.contains("exceeds the 250 characters"));
+}
 }
 
 
