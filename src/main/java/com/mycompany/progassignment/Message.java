@@ -51,7 +51,7 @@ private String generateMessageID(){
     if(this.recipientCell != null 
         && (this.recipientCell.startsWith("+")|| this.recipientCell.matches("^\\d+$"))
     && this.recipientCell.length()<=12){
-        return "Cell phone number successfully cpatured";
+        return "Cell phone number successfully captured";
     }else{
         return "Cell phone number is incorrectly formatted or does not contain an international code. PLease correct the number and try again."
 ;    }
@@ -80,7 +80,7 @@ private String generateMessageID(){
     public String sentMessage(int choice){
         switch (choice){
             case 1:
-                return "Messagesuccessfully sent.";
+                return "Message successfully sent.";
                 case 2:
                     return "Press 0 to delete the message.";
                     case 3:

@@ -1,8 +1,21 @@
 -------------------------------------------------------------------------------
 Test set: com.mycompany.progassignment.MessageTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.080 s <<< FAILURE! -- in com.mycompany.progassignment.MessageTest
-com.mycompany.progassignment.MessageTest.testSentMessageActions -- Time elapsed: 0.008 s <<< FAILURE!
+Tests run: 8, Failures: 4, Errors: 0, Skipped: 0, Time elapsed: 0.078 s <<< FAILURE! -- in com.mycompany.progassignment.MessageTest
+com.mycompany.progassignment.MessageTest.testRecipientCellFailure -- Time elapsed: 0.026 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:183)
+	at com.mycompany.progassignment.MessageTest.testRecipientCellFailure(MessageTest.java:69)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+
+com.mycompany.progassignment.MessageTest.testSentMessageActions -- Time elapsed: 0.002 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <Message successfully sent.> but was: <Messagesuccessfully sent.>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -15,7 +28,7 @@ org.opentest4j.AssertionFailedError: expected: <Message successfully sent.> but 
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
-com.mycompany.progassignment.MessageTest.testMessageLengthFailure -- Time elapsed: 0.002 s <<< FAILURE!
+com.mycompany.progassignment.MessageTest.testMessageLengthFailure -- Time elapsed: 0.004 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -29,7 +42,7 @@ org.opentest4j.AssertionFailedError: expected: <true> but was: <false>
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
 
 com.mycompany.progassignment.MessageTest.testRecipientCellSuccess -- Time elapsed: 0.001 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: expected: <Cell phone number successfully captured> but was: <Cell phone number is incorrectly formatted or does not contain an international code. PLease correct the number and try again.>
+org.opentest4j.AssertionFailedError: expected: <Cell phone number successfully captured> but was: <Cell phone number successfully cpatured>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
