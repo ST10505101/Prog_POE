@@ -46,14 +46,14 @@ public class MessageTest {
     }
 @Test
     public void testMessageLengthFailure() {
-        // Test failure when message exceeds 250 characters
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 260; i++) {
             sb.append("A");
         }
         Message msg = new Message(1, "+27718693002", sb.toString());
         String result = msg.checkMessageLength();
-        assertTrue(result.contains("exceeds 250 characters by 10"));
+        // This will print the exact string comparison if it fails
+        assertEquals("Message exceeds 250 characters by 10; please reduce the size.", result);
     }
 @Test
     public void testRecipientCellSuccess() {
@@ -63,10 +63,10 @@ public class MessageTest {
     }
 @Test
     public void testRecipientCellFailure() {
-        // Test Case 2 Recipient: Format lacking proper international requirements/constraints
         Message msg = new Message(2, "08575975889", "Hi Keegan, did you receive the payment?");
         String result = msg.checkRecipientCell();
-        assertTrue(result.contains("incorrectly formatted") || result.contains("does not contain"));
+        // This will print the exact string comparison if it fails
+        assertEquals("Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.", result);
     }
 @Test
     public void testMessageHash() {
