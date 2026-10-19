@@ -59,7 +59,8 @@ if (loginSystem.checkCellPhoneNumber(cellPhoneNumber)){
 
 String regResult= loginSystem.registerUser(username, password, cellPhoneNumber);
 System.out.println(regResult);
-
+if (regResult.contains("successfully registered")) {
+        isRegistered = true; 
 System.out.println("\n==========================");
 System.out.println("             LOGIN          ");
 System.out.println("============================");
@@ -175,7 +176,8 @@ if (isLoggedIn){
 }
 scanner.close();
     } 
- }
+}
+}
 
 
 
