@@ -122,7 +122,7 @@ if (isLoggedIn){
             //validate message length
             String lengthCheck = msg.checkMessageLength();
             System.out.println(lengthCheck);
-            if (!lengthCheck.equals("Messageready to send.")){
+            if (!lengthCheck.equals("Message ready to send.")){
                 i--; // Return iteration
                 continue;
             }
