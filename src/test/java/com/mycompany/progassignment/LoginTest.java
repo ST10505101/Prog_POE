@@ -71,4 +71,18 @@ public void testCheckCellPhoneNumberInvalid(){
     Login login= new Login();
     assertFalse(login.checkCellPhoneNumber("08966553"),"Cell number is incorrectly formatted or does not contain an international code; please correct the number and try again");
 }
+@Test
+public void testLoginSuccess() {
+    Login login = new Login();
+    // Assuming registration is simulated or handled before checking login status
+    login.registerUser("kyl_1", "Ch&&sec@ke99!", "+27838968976");
+    assertTrue(login.loginUser("kyl_1", "Ch&&sec@ke99!"), "Login should succeed with correct credentials");
+}
+
+@Test
+public void testLoginFailure() {
+    Login login = new Login();
+    login.registerUser("kyl_1", "Ch&&sec@ke99!", "+27838968976");
+    assertFalse(login.loginUser("kyl_1", "wrongpassword"), "Login should fail with incorrect credentials");
+}
 }
