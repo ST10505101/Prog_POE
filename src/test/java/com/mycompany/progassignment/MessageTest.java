@@ -96,6 +96,87 @@ public class MessageTest {
         Message msg = new Message(2, "+27718693002", "Test message");
         assertEquals(2, msg.returnTotalMessagesSent());
     }
+@Test
+void testDisregardedMessagesAreRecordedNotSent() {
+    Message m1 = new Message(1, "+27834557896", "Draft message to ignore");
+    m1.flag = "Disregard";
+    m1.recordInArrays();
+
+    assertTrue(Message.disregardedMessages.contains(m1));
+    assertFalse(Message.sentMessages.contains(m1));
+}
+
+@Test
+void testStoredMessagePersistsAndLoadsFromJson() {
+    Message storedMsg = new Message(1, "+27834445566", "Stored for later");
+    storedMsg.flag = "Stored";
+    storedMsg.recordInArrays();
+    storedMsg.storeMessage();
+
+    Message.resetArrays();
+    Message.loadStoredMessagesFromJson();
+
+    boolean found = Message.storedMessages.stream()
+            .anyMatch(m -> "Stored for later".equals(m.messageText));
+    assertTrue(found);
+}
+
+@Test
+void testSearchByMessageId() {
+    Message m1 = new Message(1, "+27834557896", "Hello there");
+    m1.flag = "Sent";
+    m1.recordInArrays();
+
+    String found = Message.searchByMessageID(m1.messageID);
+    assertNotNull(found);
+    assertTrue(found.contains("+27834557896"));
+    assertTrue(found.contains("Hello there"));
+}
+
+@Test
+void testSearchNonExistentMessageIdHandlesGracefully() {
+    String result = Message.searchByMessageID("9999999999");
+    assertNotNull(result);
+    assertTrue(result.toLowerCase().contains("not found"));
+}
+
+@Test
+void testSearchByRecipientReturnsMatchingMessages() {
+    String targetRecipient = "+27835551122";
+
+    Message m1 = new Message(1, targetRecipient, "First message to recipient");
+    m1.flag = "Sent";
+    m1.recordInArrays();
+
+    Message m2 = new Message(2, "+27839990000", "Different recipient");
+    m2.flag = "Sent";
+    m2.recordInArrays();
+
+    Message m3 = new Message(3, targetRecipient, "Second message to recipient");
+    m3.flag = "Stored";
+    m3.recordInArrays();
+
+    String results = Message.searchMessagesByRecipient(targetRecipient);
+    assertNotNull(results);
+    assertTrue(results.contains("First message to recipient"));
+    assertTrue(results.contains("Second message to recipient"));
+    assertFalse(results.contains("Different recipient"));
+}
+
+
+    @Test
+    void testFullReportIncludesMessageDetails() {
+        Message m1 = new Message(1, "+27834557896", "Report check message");
+        m1.flag = "Sent";
+        m1.recordInArrays();
+
+        String report = Message.getStoredMessagesReport(); // or whatever your report method is named
+        assertNotNull(report);
+        assertTrue(report.contains(m1.messageID));
+        assertTrue(report.contains(m1.messageText));
+        assertTrue(report.contains("+27834557896"));
+        assertTrue(report.contains("Report check message"));
+    }
 }
 
 

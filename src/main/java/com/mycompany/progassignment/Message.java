@@ -24,12 +24,12 @@ import java.util.regex.Pattern;
  */
 public class Message {
     private String recipientCell;
-    private String messageText;
-    private String messageID;
-    private String messageHash;
+    public String messageText;
+    public String messageID;
+    public String messageHash;
     private int messageNumber;
     private String sender;
-    private String flag;
+    public String flag;
 
 /**
  * constructor to initialize the message with its sequence number, recipient, and text.
@@ -50,6 +50,13 @@ public Message(int messageNumber, String sender, String recipientCell, String me
         this.messageID = generateMessageID();
         this.messageHash = createMessageHash();
     }
+   public static void resetArrays() {
+    sentMessages.clear();
+    disregardedMessages.clear();
+    storedMessages.clear();
+    messageHashes.clear();
+    messageIDs.clear();
+}
 /**
  * Helper method to generate a random 10-digit message ID for tracking.
  */
@@ -132,11 +139,11 @@ public int returnTotalMessagesSent(){
         }
     }
     // Dynamic lists for Part 3 message tracking
-    private static final List<Message> sentMessages = new ArrayList<>();
-    private static final List<Message> disregardedMessages = new ArrayList<>();
-    private static final List<Message> storedMessages = new ArrayList<>();
-    private static final List<String> messageHashes = new ArrayList<>();
-    private static final List<String> messageIDs = new ArrayList<>();
+    public static final List<Message> sentMessages = new ArrayList<>();
+    public static final List<Message> disregardedMessages = new ArrayList<>();
+    public static final List<Message> storedMessages = new ArrayList<>();
+    public static final List<String> messageHashes = new ArrayList<>();
+    public static final List<String> messageIDs = new ArrayList<>();
 
     public void recordInArrays() {
         messageIDs.add(this.messageID);
@@ -150,8 +157,7 @@ public int returnTotalMessagesSent(){
             storedMessages.add(this);
         }
     }
-
-    public static void loadStoredMessagesFromJson() {
+public static void loadStoredMessagesFromJson() {
         File folder = new File(".");
         File[] files = folder.listFiles((dir, name) -> name.startsWith("message_") && name.endsWith(".json"));
         if (files == null) return;
@@ -163,6 +169,9 @@ public int returnTotalMessagesSent(){
                 String hash = extractJsonField(content, "messageHash");
                 String snd = extractJsonField(content, "sender");
                 String rec = extractJsonField(content, "recipient");
+                if (rec.isEmpty()) {
+                    rec = extractJsonField(content, "recipientCell");
+                }
                 String txt = extractJsonField(content, "messageText");
 
                 boolean alreadyLoaded = storedMessages.stream().anyMatch(m -> m.messageID.equals(id));
@@ -171,6 +180,9 @@ public int returnTotalMessagesSent(){
                     if (!hash.isEmpty()) {
                         loaded.messageHash = hash;
                     }
+                    if (!id.isEmpty()) {
+                        loaded.messageID = id;
+                    }
                     storedMessages.add(loaded);
                 }
             } catch (Exception e) {
@@ -178,6 +190,7 @@ public int returnTotalMessagesSent(){
             }
         }
     }
+    
 
     private static String extractJsonField(String json, String key) {
         Pattern pattern = Pattern.compile("\"" + key + "\"\\s*:\\s*\"(.*?)\"");
