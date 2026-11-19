@@ -47,6 +47,43 @@ This section contains the solution for **Part 2** of the Portfolio of Evidence (
 ### Testing:
 Comprehensive unit tests are implemented in `MessageTest.java` using JUnit to verify message length limits, cell number formatting, hash creation, ID generation, and user action selections against the POE specification guidelines.
 
+------
+
+## Part 3 — Message Management, Data Persistence & Unit Testing
+
+### 🚀 Overview & New Features
+Part 3 expands QuickChat to support full message categorization, JSON persistence, dynamic searching, and structured reporting.
+
+* **Dynamic Array & List Management:**
+  * `sentMessages`: Stores all messages with the `"Sent"` status flag.
+  * `disregardedMessages`: Stores all draft messages flagged as `"Disregard"`.
+  * `storedMessages`: Manages all offline messages saved with the `"Stored"` status flag.
+  * `messageIDs` & `messageHashes`: Tracks all system-generated 10-digit IDs and message hashes across the application lifecycle.
+
+* **JSON File Persistence & Startup Restoration:**
+  * Implemented automated JSON generation (`storeMessage()`) which exports stored message instances to individual files (`message_<n>.json`).
+  * Integrated startup parsing (`Message.loadStoredMessagesFromJson()`) to scan the project directory on launch and reconstruct stored message objects back into memory without duplicate entry.
+
+* **Stored Messages Submenu (Main Menu Option 4):**
+  * **a) Senders & Recipients:** Displays sender and recipient details for all saved messages.
+  * **b) Longest Message:** Computes and returns the longest message body across all recorded messages.
+  * **c) Search by Message ID:** Locates any message by its unique 10-digit ID and returns recipient and text details.
+  * **d) Search by Recipient:** Queries both sent and stored messages to list all communications associated with a specific cell phone number.
+  * **e) Delete by Message Hash:** Deletes a targeted message record using its exact hash key and returns a deletion status confirmation.
+  * **f) Full Report Generation:** Produces a structured report detailing the Message Hash, Recipient, and Message text for stored/sent entries.
+
+---
+
+### 🧪 Unit Testing & Quality Assurance
+Automated unit tests were implemented using **JUnit 5** in `MessageTest.java` to achieve comprehensive coverage across all business logic and edge cases:
+
+1. **Sent & Disregarded Array Verification:** Asserts that disregarded messages are correctly recorded in `disregardedMessages` while remaining excluded from `sentMessages`.
+2. **JSON Loading & Persistence:** Verifies that stored messages write to JSON, clear from memory on reset (`resetArrays()`), and reload cleanly from file storage.
+3. **ID & Recipient Search Verification:** Ensures valid message lookup via `searchByMessageID()` and verifies that non-existent IDs return graceful error notifications.
+4. **Recipient Multi-Message Search:** Confirms `searchMessagesByRecipient()` aggregates all messages for a targeted recipient across both sent and stored collections.
+5. **Hash Deletion Testing:** Verifies `deleteMessageByHash()` removes the specified record and returns the required system status output.
+6. **Report Generation Output:** Validates that output reports contain all mandatory fields (`Message Hash`, `Recipient`, and `Message`).
+
 -----
 ## Author:
 Ammaarah Mostert- ST10505101
