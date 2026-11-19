@@ -138,7 +138,7 @@ if (isLoggedIn){
             // Choose action
             System.out.println("\nChoose an action:");
             System.out.println("1) Send Message");
-            System.out.println("2) Disregrad Message");
+            System.out.println("2) Disregard Message");
             System.out.println("3) Store Message to send later");
             System.out.print("Enter option (1-3): ");
 
@@ -159,10 +159,11 @@ if (isLoggedIn){
          break;
 
          case 2: 
-         System.out.println("Coming Soon.");
+         handleStoredMessagesMenu(scanner);
          break;
 
          case 3:
+            handleStoredMessagesMenu(scanner);
             System.out.println("Exiting QuickChat. Goodbye!");
             running = false;
             break;
@@ -172,12 +173,54 @@ if (isLoggedIn){
             }
         }
     }
-
 }
 scanner.close();
-    } 
+        } 
+    }
+    
+    private static void handleStoredMessagesMenu(Scanner scanner) {
+        System.out.println("\n--- STORED MESSAGES MENU ---");
+        System.out.println("a) Display sender and recipient of all stored messages");
+        System.out.println("b) Display the longest message");
+        System.out.println("c) Search for a message ID");
+        System.out.println("d) Search for all messages for a particular recipient");
+        System.out.println("e) Delete a message using the message hash");
+        System.out.println("f) Display full report of all stored messages");
+        System.out.print("Choose an option (a-f): ");
+
+        String subChoice = scanner.nextLine().trim().toLowerCase();
+
+        switch (subChoice) {
+            case "a":
+                System.out.println(Message.getStoredSendersAndRecipients());
+                break;
+            case "b":
+                System.out.println("Longest message: " + Message.getLongestMessageAcrossAll());
+                break;
+            case "c":
+                System.out.print("Enter Message ID: ");
+                String id = scanner.nextLine().trim();
+                System.out.println(Message.searchByMessageID(id));
+                break;
+            case "d":
+                System.out.print("Enter recipient number: ");
+                String rec = scanner.nextLine().trim();
+                System.out.println(Message.searchMessagesByRecipient(rec));
+                break;
+            case "e":
+                System.out.print("Enter Message Hash to delete: ");
+                String hash = scanner.nextLine().trim();
+                System.out.println(Message.deleteMessageByHash(hash));
+                break;
+            case "f":
+                System.out.println(Message.getStoredMessagesReport());
+                break;
+            default:
+                System.out.println("Invalid sub-option.");
+        }
+    }
 }
-}
 
 
 
+ 

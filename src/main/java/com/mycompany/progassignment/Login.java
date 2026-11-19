@@ -74,7 +74,7 @@ for(int i=0; i < password.length(); i++) {
    */
   public String registerUser(String username, String password, String cellPhoneNumber) {
     if (!checkUserName(username)) {
-        return "Username is not correctly formatted; please ensure that yuor username contains an underscore and is no more than 5 characters in length.";
+        return "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than 5 characters in length.";
     }
     if (!checkPasswordComplexity(password)) {
         return "Password is not correctly formatted; please ensure that the password contains at least 8 characters, a capital letter, a number, and a special character.";
