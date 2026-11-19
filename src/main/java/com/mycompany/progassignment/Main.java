@@ -82,15 +82,18 @@ System.out.println(statusMessage);
 if (isLoggedIn){
     System.out.println("\nWelcome to quickchat.");
 
-    boolean running = true;
+   
+boolean running = true;
     int totalSent = 0;
+    Message.loadStoredMessagesFromJson();
 
+    
     while(running){
         System.out.println("\n==========================");
         System.out.println("QUICKCHAT MAIN MENU");
         System.out.println("=============================");
         System.out.println("1) Send messages");
-        System.out.println("2) Show recently sent messages");
+        System.out.println("2) Stored / Message options");
         System.out.println("3) Quit");
         System.out.print("Choose and option (1-3): ");
 
@@ -144,36 +147,45 @@ if (isLoggedIn){
 
             int action = scanner.nextInt();
             scanner.nextLine();
-
-            System.out.println(msg.sentMessage(action));
+System.out.println(msg.sentMessage(action));
 
             if (action == 1) {
+                msg.flag = "Sent";
+                msg.recordInArrays();
                 totalSent++;
                 System.out.println("\nMessage Details ---");
                 System.out.println(msg.printMessages());
-            }else if(action == 3) {
+            } else if (action == 2) {
+                msg.flag = "Disregard";
+                msg.recordInArrays();
+            } else if (action == 3) {
+                msg.flag = "Stored";
+                msg.recordInArrays();
                 msg.storeMessage();
             }
          }
          System.out.println("\nTotal messages processed:   "  + totalSent);
          break;
 
-         case 2: 
-         handleStoredMessagesMenu(scanner);
-         break;
+         case 2:
+            handleStoredMessagesMenu(scanner);
+            break;
 
          case 3:
-            handleStoredMessagesMenu(scanner);
             System.out.println("Exiting QuickChat. Goodbye!");
             running = false;
             break;
 
-            default:
-                System.out.println("Please choose a valid option (1-3).");
+         default:
+            System.out.println("Please choose a valid option (1-3).");
+            break;
+
+            
             }
         }
     }
 }
+
 scanner.close();
         } 
     }

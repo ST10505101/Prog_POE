@@ -179,6 +179,17 @@ void testFullReportIncludesMessageDetails() {
     assertTrue(report.contains(m1.messageText));
     assertTrue(report.contains("+27834557896"));
 }
+@Test
+void testDeleteMessageByHash() {
+    Message.resetArrays();
+    Message m1 = new Message(1, "+27834557896", "Delete me later");
+    m1.flag = "Stored";
+    m1.recordInArrays();
+
+    String result = Message.deleteMessageByHash(m1.messageHash);
+    assertTrue(result.contains("successfully deleted"));
+    assertFalse(Message.storedMessages.contains(m1));
+}
 }
 
 

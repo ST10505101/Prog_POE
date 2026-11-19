@@ -123,19 +123,23 @@ public String printMessages(){
 public int returnTotalMessagesSent(){
     return this.messageNumber;
     }
-    //Stores the message in a JSon file
+   
+    //Stores the message in a JSON file
+    // JSON reading/parsing approach adapted for QuickChat stored message persistence.
     public void storeMessage(){
+        String safeSender = (this.sender != null) ? this.sender : "";
         String jsonContent = "{\n" +
                 " \"messageID\": \"" + this.messageID + "\",\n" +
                 " \"messageHash\": \"" + this.messageHash + "\",\n" +
+                " \"sender\": \"" + safeSender + "\",\n" +
                 " \"recipientCell\": \"" + this.recipientCell + "\",\n" +
                 " \"messageText\": \"" + this.messageText + "\"\n"+
                 "}";
-                try (FileWriter file = new FileWriter("message_" + this.messageNumber + ".json")){
-                file.write(jsonContent);
-                file.flush();
-    }catch (IOException e){
-    System.out.println("Error saving message to JSON: " +e.getMessage());              
+        try (FileWriter file = new FileWriter("message_" + this.messageNumber + ".json")){
+            file.write(jsonContent);
+            file.flush();
+        } catch (IOException e){
+            System.out.println("Error saving message to JSON: " + e.getMessage());
         }
     }
     // Dynamic lists for Part 3 message tracking
@@ -211,7 +215,7 @@ public static void loadStoredMessagesFromJson() {
         return sb.toString().trim();
     }
 
-    // b) Display the longest message across all messages
+    // b) Display details for the longest message across all messages
     public static String getLongestMessageAcrossAll() {
         List<Message> all = new ArrayList<>();
         all.addAll(sentMessages);
@@ -225,7 +229,11 @@ public static void loadStoredMessagesFromJson() {
                 longest = m;
             }
         }
-        return longest.messageText;
+        return "Message ID: " + longest.messageID +
+               " | Hash: " + longest.messageHash +
+               " | Sender: " + longest.sender +
+               " | Recipient: " + longest.recipientCell +
+               " | Message: " + longest.messageText;
     }
 
     // c) Search for a message ID and display corresponding recipient and message
@@ -266,23 +274,22 @@ public static void loadStoredMessagesFromJson() {
     public static String deleteMessageByHash(String targetHash) {
         for (int i = 0; i < storedMessages.size(); i++) {
             if (storedMessages.get(i).messageHash.equalsIgnoreCase(targetHash)) {
-                String removedText = storedMessages.get(i).messageText;
-                storedMessages.remove(i);
-                messageHashes.remove(targetHash);
-                return "Message: \"" + removedText + "\" successfully deleted.";
+                Message removed = storedMessages.remove(i);
+                messageHashes.remove(removed.messageHash);
+                messageIDs.remove(removed.messageID);
+                return "Message: \"" + removed.messageText + "\" successfully deleted.";
             }
         }
         for (int i = 0; i < sentMessages.size(); i++) {
             if (sentMessages.get(i).messageHash.equalsIgnoreCase(targetHash)) {
-                String removedText = sentMessages.get(i).messageText;
-                sentMessages.remove(i);
-                messageHashes.remove(targetHash);
-                return "Message: \"" + removedText + "\" successfully deleted.";
+                Message removed = sentMessages.remove(i);
+                messageHashes.remove(removed.messageHash);
+                messageIDs.remove(removed.messageID);
+                return "Message: \"" + removed.messageText + "\" successfully deleted.";
             }
         }
         return "Message hash not found.";
     }
-
     // Display full report of all sent messages (Main Menu option 2)
     public static String getSentMessagesReport() {
         if (sentMessages.isEmpty()) {
