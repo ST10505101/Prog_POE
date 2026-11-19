@@ -162,18 +162,22 @@ void testSearchByRecipientReturnsMatchingMessages() {
     assertTrue(results.contains("Second message to recipient"));
     assertFalse(results.contains("Different recipient"));
 }
- @Test
+@Test
 void testFullReportIncludesMessageDetails() {
-    Message m1 = new Message(1, "+27834557896", "Report check message");
-    m1.flag = "Stored"; // Change "Sent" to "Stored"
+    Message m1 = new Message(
+        1,
+        "+27834557896",
+        "Report check message"
+    );
+    m1.flag = "Stored";
     m1.recordInArrays();
 
-    String report = Message.getStoredMessagesReport(); 
+    String report = Message.getStoredMessagesReport();
+
     assertNotNull(report);
     assertTrue(report.contains(m1.messageID));
     assertTrue(report.contains(m1.messageText));
     assertTrue(report.contains("+27834557896"));
-    assertTrue(report.contains("Report check message"));
 }
 }
 
