@@ -43,6 +43,13 @@ public Message(int messageNumber, String sender, String recipientCell, String me
         this.messageID = generateMessageID();
         this.messageHash = createMessageHash();
     }
+    public Message(int messageNumber, String recipientCell, String messageText) {
+        this.messageNumber = messageNumber;
+        this.recipientCell = recipientCell;
+        this.messageText = messageText;
+        this.messageID = generateMessageID();
+        this.messageHash = createMessageHash();
+    }
 /**
  * Helper method to generate a random 10-digit message ID for tracking.
  */
